@@ -18,7 +18,18 @@ class DocenteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'dni'          => fake()->unique()->numerify('########'),
+            'nombres'      => fake()->firstName(),
+            'apellidos'    => fake()->lastName() . ' ' . fake()->lastName(),
+            'especialidad' => fake()->randomElement([
+                'Educación Primaria', 'Educación Física', 'Inglés', 'Arte y Cultura',
+            ]),
+            'activo'       => true,
         ];
+    }
+
+    public function inactivo(): static
+    {
+        return $this->state(fn () => ['activo' => false]);
     }
 }
