@@ -14,3 +14,13 @@ Proyecto integrador de DSI406 Tecnología Backend (Laravel + PostgreSQL)[cite: 3
 8. php artisan serve[cite: 5]
 
 Autor: BRUNO MANUEL PAUCCAR CONDORI
+
+## Datos de prueba
+Comando para reconstruir y poblar la base de datos:
+`php artisan migrate:fresh --seed`
+
+| Usuario                 | Rol           | Contraseña |
+|-------------------------|---------------|------------|
+| director@colegio.test   | administrador | password   |
+| docente@colegio.test    | docente       | password   |
+| secretaria@colegio.test | secretaria    | password   |
