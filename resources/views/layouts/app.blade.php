@@ -4,26 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo', 'Inicio') · {{ config('app.name') }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .navbar-colegio { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); }
+        main { flex: 1; }
+    </style>
 </head>
 <body>
-    <header class="container">
-        <nav>
-            <ul><li><strong>{{ config('app.name') }}</strong></li></ul>
-            <ul>
-                <li><a href="{{ route('inicio') }}">Inicio</a></li>
-                <li><a href="#">Estudiantes</a></li>
-                <li><a href="#">Grados y Secciones</a></li>
-                <li><a href="#">Matrículas</a></li>
-                <li><a href="#">Notas y Asistencias</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-colegio shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ route('inicio') }}">
+                <i class="bi bi-mortarboard-fill me-2"></i>{{ config('app.name') }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('inicio') }}"><i class="bi bi-house-door me-1"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i>Estudiantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-door-open me-1"></i>Grados y Secciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-journal-check me-1"></i>Matrículas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-clipboard-data me-1"></i>Notas y Asistencias</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
         @yield('contenido')
     </main>
-    <footer class="container">
-        <small>DSI406 · Tecnología Backend · IES Túpac Amaru</small>
+
+    <footer class="bg-white border-top py-3 mt-auto text-center text-muted">
+        <small>DSI406 · Tecnología Backend · IES Túpac Amaru &mdash; Desarrollado por Bruno Manuel Pauccar Condori</small>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
