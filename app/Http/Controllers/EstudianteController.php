@@ -18,17 +18,10 @@ class EstudianteController extends Controller
 {
     $buscar = trim($request->input('buscar', ''));
 
-    $estudiantes = Estudiante::query()
-        ->when($buscar, function ($consulta, $buscar) {
-            $consulta->where('dni', 'like', "$buscar%")
-                     ->orWhere('apellidos', 'ilike', "%$buscar%");
-        })
-        ->orderBy('apellidos')
-        ->orderBy('nombres')
-        ->paginate(10)
-        ->withQueryString();
+    $estudiante = Estudiante::create($request->validated());
 
-    return view('estudiantes.index', compact('estudiantes', 'buscar'));
+return redirect()->route('estudiantes.show', $estudiante)
+    ->with('ok', 'Estudiante registrado correctamente.');
 }
 
     /**
@@ -51,25 +44,28 @@ public function store(StoreEstudianteRequest $request)
      * Display the specified resource.
      */
     public function show(Estudiante $estudiante)
-    {
-        //
-    }
+{
+    $matriculas = $estudiante->matriculas()
+        ->with(['gradoSeccion', 'docente'])
+        ->latest('fecha_hora')
+        ->take(5)
+        ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Estudiante $estudiante)
-    {
-        //
-    }
+    return view('estudiantes.show', compact('estudiante', 'matriculas'));
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEstudianteRequest $request, Estudiante $estudiante)
-    {
-        //
-    }
+public function edit(Estudiante $estudiante)
+{
+    return view('estudiantes.edit', compact('estudiante'));
+}
+
+public function update(UpdateEstudianteRequest $request, Estudiante $estudiante)
+{
+    $estudiante->update($request->validated());
+
+    return redirect()->route('estudiantes.show', $estudiante)
+        ->with('ok', 'Datos del estudiante actualizados.');
+}
 
     /**
      * Remove the specified resource from storage.
