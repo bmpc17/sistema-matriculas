@@ -5,16 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Estudiante;
 use App\Http\Requests\StoreEstudianteRequest;
 use App\Http\Requests\UpdateEstudianteRequest;
+use Illuminate\Http\Request;
+
 
 class EstudianteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    public function index(Request $request)
+{
+    $buscar = trim($request->input('buscar', ''));
+
+    $estudiantes = Estudiante::query()
+        ->when($buscar, function ($consulta, $buscar) {
+            $consulta->where('dni', 'like', "$buscar%")
+                     ->orWhere('apellidos', 'ilike', "%$buscar%");
+        })
+        ->orderBy('apellidos')
+        ->orderBy('nombres')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('estudiantes.index', compact('estudiantes', 'buscar'));
+}
 
     /**
      * Show the form for creating a new resource.

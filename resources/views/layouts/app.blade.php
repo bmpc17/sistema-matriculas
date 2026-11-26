@@ -46,8 +46,22 @@
     </nav>
 
     <main class="container my-4">
-        @yield('contenido')
-    </main>
+    @if (session('ok'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>{{ session('ok') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    @yield('contenido')
+</main>
 
     <footer class="bg-white border-top py-3 mt-auto text-center text-muted">
         <small>DSI406 · Tecnología Backend · IES Túpac Amaru &mdash; Desarrollado por Bruno Manuel Pauccar Condori</small>
