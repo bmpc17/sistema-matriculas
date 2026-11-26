@@ -71,7 +71,15 @@ public function update(UpdateEstudianteRequest $request, Estudiante $estudiante)
      * Remove the specified resource from storage.
      */
     public function destroy(Estudiante $estudiante)
-    {
-        //
+{
+    if ($estudiante->matriculas()->exists()) {
+        return back()->with('error',
+            'No se puede eliminar: el estudiante tiene matrículas registradas.');
     }
+
+    $estudiante->delete();
+
+    return redirect()->route('estudiantes.index')
+        ->with('ok', 'Estudiante eliminado correctamente.');
+}
 }

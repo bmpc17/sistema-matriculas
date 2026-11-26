@@ -12,13 +12,23 @@
             </p>
         </div>
         <div class="d-flex gap-2">
-            <a href="{{ route('estudiantes.edit', $estudiante) }}" class="btn btn-warning">
-                <i class="bi bi-pencil-square me-1"></i> Editar
-            </a>
-            <a href="{{ route('estudiantes.index') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i> Volver al listado
-            </a>
-        </div>
+    <a href="{{ route('estudiantes.edit', $estudiante) }}" class="btn btn-warning">
+        <i class="bi bi-pencil-square me-1"></i> Editar
+    </a>
+
+    <form method="POST" action="{{ route('estudiantes.destroy', $estudiante) }}"
+          onsubmit="return confirm('¿Está seguro de eliminar a este estudiante?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash me-1"></i> Eliminar
+        </button>
+    </form>
+
+    <a href="{{ route('estudiantes.index') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Volver al listado
+    </a>
+</div>
     </div>
 
     <div class="card border-0 shadow-sm mb-4">
