@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateEstudianteRequest;
 use Illuminate\Http\Request;
 
 
+
 class EstudianteController extends Controller
 {
     /**
@@ -34,17 +35,17 @@ class EstudianteController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    return view('estudiantes.create', ['estudiante' => new Estudiante()]);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEstudianteRequest $request)
-    {
-        //
-    }
+public function store(StoreEstudianteRequest $request)
+{
+    Estudiante::create($request->validated());
+
+    return redirect()->route('estudiantes.index')
+        ->with('ok', 'Estudiante registrado correctamente.');
+}
 
     /**
      * Display the specified resource.
