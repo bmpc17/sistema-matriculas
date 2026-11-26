@@ -27,8 +27,10 @@
                         <a class="nav-link active" href="{{ route('inicio') }}"><i class="bi bi-house-door me-1"></i>Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i>Estudiantes</a>
-                    </li>
+    <a class="nav-link {{ request()->routeIs('estudiantes.*') ? 'active' : '' }}" href="{{ route('estudiantes.index') }}">
+        <i class="bi bi-people me-1"></i>Estudiantes
+    </a>
+</li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-door-open me-1"></i>Grados y Secciones</a>
                     </li>
